@@ -1,6 +1,6 @@
-import { Check, UploadCloud, Database, Lock, AlertTriangle, Cpu, TerminalSquare } from 'lucide-react';
+import { Check, UploadCloud, Database, Lock, AlertTriangle, Cpu, TerminalSquare, Search } from 'lucide-react';
 import { Manifest } from '../types';
-import { useState, useRef } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 
@@ -19,7 +19,7 @@ export function DataManifest({ manifest, onProceed }: DataManifestProps) {
     fileInputRef.current?.click();
   };
   
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0 && activeUploadIndex !== null) {
       // Simulate validating the file locally in memory
       setUploadedIndexes(prev => {
@@ -120,15 +120,31 @@ export function DataManifest({ manifest, onProceed }: DataManifestProps) {
                     </button>
                   </div>
                   
-                  {!isUploaded && asset.sourcing_instructions && (
-                     <div className="mt-4 pt-3 border-t border-gray-800/60 bg-[#0a0a0c] p-3 rounded-sm border">
-                        <div className="flex items-center gap-2 text-[10px] text-blue-400 tracking-widest uppercase mb-2">
-                           <TerminalSquare className="w-3 h-3" />
-                           Sourcing Directives
-                        </div>
-                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
-                          {asset.sourcing_instructions}
-                        </p>
+                  {!isUploaded && (asset.sourcing_instructions || asset.manual_search_alternative) && (
+                     <div className="mt-4 pt-3 flex flex-col gap-3 border-t border-gray-800/60 bg-[#0a0a0c] p-3 rounded-sm border">
+                        {asset.sourcing_instructions && (
+                          <div>
+                            <div className="flex items-center gap-2 text-[10px] text-blue-400 tracking-widest uppercase mb-1">
+                               <TerminalSquare className="w-3 h-3" />
+                               Sourcing Directives
+                            </div>
+                            <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                              {asset.sourcing_instructions}
+                            </p>
+                          </div>
+                        )}
+                        
+                        {asset.manual_search_alternative && (
+                          <div className={asset.sourcing_instructions ? "pt-3 border-t border-gray-800/40" : ""}>
+                            <div className="flex items-center gap-2 text-[10px] text-purple-400 tracking-widest uppercase mb-1">
+                               <Search className="w-3 h-3" />
+                               Manual Search Alternative
+                            </div>
+                            <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                              {asset.manual_search_alternative}
+                            </p>
+                          </div>
+                        )}
                      </div>
                   )}
                 </div>

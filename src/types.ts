@@ -4,6 +4,7 @@ export type DataAsset = {
   format: string;
   required: boolean;
   sourcing_instructions?: string;
+  manual_search_alternative?: string;
   uploaded?: boolean;
 };
 

@@ -52,11 +52,11 @@ Your role is an adversarial data auditor.
 The user has entered the following target objective: "${objective}"
 Analyze this objective, determine the mathematical models required (e.g. Markov Models, Monte Carlo, GMMs), and calculate data deficiencies.
 Generate a dynamic Data Ingestion Manifest demanding exact, granular data assets needed to run a valid calculation.
-Crucially, for each required data asset, provide explicit, technical "sourcing_instructions" telling the user exactly how to fetch this data (e.g., specific Google Earth Engine datasets/scripts for weather, specific public APIs, terminal curl commands, Python scripts, or scraping methodologies).
+Crucially, for each required data asset, provide explicit, technical "sourcing_instructions" telling the user exactly how to fetch this data (e.g., specific Google Earth Engine datasets/scripts for weather, specific public APIs, terminal curl commands, Python scripts, or scraping methodologies). Also provide a "manual_search_alternative" telling the user exactly what to search for online to manually compile this data if APIs are unavailable (e.g., searching an Instagram page for followers count).
 Be extremely rigorous and analytical. Do not generate a predictive answer, ONLY the data manifest requirements in valid JSON format matching this exact schema:
 {
   "models_required": ["string"],
-  "data_assets": [{"name": "string", "description": "string", "format": "string", "required": true, "sourcing_instructions": "string"}],
+  "data_assets": [{"name": "string", "description": "string", "format": "string", "required": true, "sourcing_instructions": "string", "manual_search_alternative": "string"}],
   "audit_summary": "string"
 }
 Return ONLY valid JSON without any markdown formatting wrappers (like \`\`\`json).`;
